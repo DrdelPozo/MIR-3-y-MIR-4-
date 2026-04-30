@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>MUYE R3-R4 · Programa de Formación 2029-2031</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400&family=Figtree:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0B1F3A;--navy-mid:#122540;--navy-light:#1B3357;
+  --accent:#2563EB;--accent-light:#EFF6FF;
+  --text:#0F172A;--text-mid:#475569;--text-light:#94A3B8;
+  --border:#E2E8F0;--bg:#F8FAFC;--white:#FFFFFF;
+  --sidebar:260px;
+}
+body{font-family:'Figtree',sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh;font-size:14px}
+
+/* ── SIDEBAR ── */
+.sidebar{width:var(--sidebar);background:var(--navy);position:fixed;top:0;left:0;bottom:0;overflow-y:auto;display:flex;flex-direction:column;z-index:100}
+.sidebar::-webkit-scrollbar{width:4px}.sidebar::-webkit-scrollbar-thumb{background:#1B3357;border-radius:2px}
+.sb-logo{padding:22px 18px 18px;border-bottom:1px solid var(--navy-light)}
+.sb-logo .sp{font-family:'Fraunces',serif;font-size:16px;color:#fff;font-weight:600;line-height:1.3;letter-spacing:-0.01em}
+.sb-logo .sub{font-size:10.5px;color:#64748B;margin-top:3px;text-transform:uppercase;letter-spacing:.08em}
+.sb-badge{display:inline-block;background:var(--accent);color:#fff;font-size:10px;padding:2px 8px;border-radius:4px;margin-top:8px;font-weight:500}
+.nav-sec{padding:14px 10px 6px}
+.nav-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#475569;padding:0 8px;margin-bottom:4px;font-weight:500}
+.nav-item{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:8px;color:#94A3B8;font-size:13px;cursor:pointer;transition:all .15s;margin-bottom:1px;text-decoration:none;border:none;background:0 0}
+.nav-item:hover{background:var(--navy-light);color:#fff}
+.nav-item.active{background:var(--accent);color:#fff}
+.nav-item.sub{padding-left:20px;font-size:12px}
+.dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.nav-icon{width:15px;height:15px;flex-shrink:0;opacity:.7}
+.nav-item.active .nav-icon,.nav-item:hover .nav-icon{opacity:1}
+
+/* ── MAIN ── */
+.main{margin-left:var(--sidebar);flex:1;min-height:100vh}
+.topbar{background:#fff;border-bottom:1px solid var(--border);padding:13px 30px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.topbar-t{font-size:14.5px;font-weight:600;color:var(--text)}
+.topbar-s{font-size:11.5px;color:var(--text-light);margin-top:2px}
+.content{padding:28px 30px}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,var(--navy) 0%,#1E3A8A 100%);border-radius:18px;padding:36px 42px;margin-bottom:28px;color:#fff;position:relative;overflow:hidden}
+.hero::after{content:"MUYE";position:absolute;right:-8px;top:-18px;font-family:'Fraunces',serif;font-size:110px;font-weight:700;color:rgba(255,255,255,.05);letter-spacing:-.05em;user-select:none;pointer-events:none}
+.hero-badge{background:rgba(255,255,255,.15);display:inline-block;padding:3px 12px;border-radius:20px;font-size:11px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
+.hero-title{font-family:'Fraunces',serif;font-size:30px;font-weight:700;line-height:1.2;margin-bottom:10px}
+.hero-desc{font-size:13.5px;opacity:.78;max-width:520px;line-height:1.75}
+.hero-actions{display:flex;gap:10px;margin-top:22px}
+.btn-p{background:#fff;color:var(--navy);padding:9px 18px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-p:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.2)}
+.btn-s{background:rgba(255,255,255,.12);color:#fff;padding:9px 18px;border-radius:9px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid rgba(255,255,255,.2);transition:all .15s}
+.btn-s:hover{background:rgba(255,255,255,.22)}
+
+/* ── STATS ── */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.stat-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px 18px 14px;transition:all .15s;cursor:default}
+.stat-card:hover{border-color:var(--accent);transform:translateY(-1px)}
+.stat-bar{height:3px;border-radius:2px;margin-bottom:12px}
+.stat-val{font-family:'Fraunces',serif;font-size:34px;font-weight:700;color:var(--text);line-height:1}
+.stat-lbl{font-size:12px;color:var(--text-mid);margin-top:5px}
+
+/* ── BLOCK GRID ── */
+.block-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.bcard{background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden;cursor:pointer;transition:all .2s}
+.bcard:hover{border-color:transparent;box-shadow:0 6px 28px rgba(0,0,0,.1);transform:translateY(-2px)}
+.bcard-hd{padding:18px 20px 15px}
+.bcard-num{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;opacity:.8;margin-bottom:5px}
+.bcard-title{font-family:'Fraunces',serif;font-size:16.5px;font-weight:600;color:#fff;line-height:1.3}
+.bcard-body{padding:14px 20px 18px}
+.bcard-obj{font-size:12px;color:var(--text-mid);line-height:1.65;margin-bottom:12px}
+.topic-row{display:flex;align-items:center;gap:7px;padding:5px 0;border-top:1px solid var(--border);font-size:11.5px;color:var(--text-mid)}
+.tc{font-weight:600;font-size:11px;min-width:26px;color:var(--text)}
+.ex-btn{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:500;color:var(--accent);padding:6px 12px;border-radius:8px;border:1px solid #BFDBFE;background:var(--accent-light);cursor:pointer;transition:all .15s}
+.ex-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* ── BLOCK DETAIL ── */
+.block-hd{border-radius:16px;padding:26px 30px;margin-bottom:22px;color:#fff}
+.block-hd-num{font-size:11px;opacity:.7;text-transform:uppercase;letter-spacing:.1em;margin-bottom:7px}
+.block-hd-title{font-family:'Fraunces',serif;font-size:24px;font-weight:700;margin-bottom:10px}
+.block-hd-obj{font-size:13px;opacity:.85;line-height:1.7;max-width:580px}
+.topic-list{display:flex;flex-direction:column;gap:10px}
+.topic-item{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px 22px;display:flex;align-items:center;gap:18px;cursor:pointer;transition:all .15s}
+.topic-badge{width:42px;height:42px;border-radius:10px;font-family:'Fraunces',serif;font-size:14.5px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.topic-name{font-size:14px;font-weight:600}
+.topic-sub{font-size:11.5px;color:var(--text-light);margin-top:3px}
+.topic-arr{font-size:13px;font-weight:500;margin-left:auto;opacity:.7}
+
+/* ── SESSION TEMPLATE ── */
+.tview{max-width:740px}
+.thd{background:linear-gradient(135deg,var(--navy) 0%,#1E3A8A 100%);border-radius:14px;padding:26px 30px;margin-bottom:20px;color:#fff}
+.thd-code{font-size:11px;opacity:.6;text-transform:uppercase;letter-spacing:.1em;margin-bottom:7px}
+.thd-title{font-family:'Fraunces',serif;font-size:24px;font-weight:700}
+.thd-meta{font-size:12.5px;opacity:.65;margin-top:7px}
+.sec-card{background:#fff;border:1px solid var(--border);border-radius:11px;margin-bottom:12px;overflow:hidden}
+.sec-hd{display:flex;align-items:center;gap:13px;padding:15px 18px;cursor:pointer;transition:background .15s}
+.sec-hd:hover{background:var(--bg)}
+.sec-num{width:28px;height:28px;border-radius:8px;color:#fff;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-title{font-size:13.5px;font-weight:600;flex:1}
+.chev{color:var(--text-light);font-size:11px;transition:transform .2s;margin-left:auto}
+.open .chev{transform:rotate(180deg)}
+.sec-body{padding:14px 18px 18px 59px;display:none}
+.open .sec-body{display:block}
+.sec-ph{background:var(--bg);border-radius:8px;padding:14px 16px;font-size:13px;color:var(--text-mid);font-style:italic;line-height:1.7}
+
+/* ── CALENDAR ── */
+.cal-tabs{display:flex;gap:8px;margin-bottom:18px}
+.cal-tab{padding:7px 18px;border-radius:8px;border:1px solid var(--border);background:#fff;font-size:13px;cursor:pointer;font-weight:500;transition:all .15s}
+.cal-tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.cal-tbl{width:100%;border-collapse:separate;border-spacing:0;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:#fff}
+.cal-tbl th{background:var(--navy);color:#fff;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;padding:11px 14px;text-align:left}
+.cal-tbl td{padding:9px 14px;font-size:13px;border-top:1px solid var(--border)}
+.cal-tbl tr:hover td{background:rgba(37,99,235,.03)}
+.mbadge{display:inline-block;padding:2px 7px;border-radius:5px;font-size:11px;font-weight:600}
+.bnum-dot{display:inline-flex;width:20px;height:20px;border-radius:6px;color:#fff;font-size:11px;font-weight:700;align-items:center;justify-content:center}
+
+/* ── BREADCRUMB ── */
+.bc{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text-light);margin-bottom:18px}
+.bc a{color:var(--accent);cursor:pointer;text-decoration:none}.bc a:hover{text-decoration:underline}
+
+/* ── BLOCK OVERVIEW ROWS ── */
+.brow{display:flex;align-items:center;gap:12px;padding:10px 13px;border-radius:10px;background:var(--bg);cursor:pointer;transition:all .15s;margin-bottom:8px}
+.brow:hover{background:#E8F0FE}
+.brow-icon{width:36px;height:36px;border-radius:8px;color:#fff;font-family:'Fraunces',serif;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.brow-name{font-size:13.5px;font-weight:600}
+.brow-topics{font-size:11px;color:var(--text-light);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:420px}
+.brow-arr{color:var(--text-light);margin-left:auto;font-size:13px}
+
+/* ── SECTION STEPS ── */
+.steps-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:12px}
+.step-item{text-align:center}
+.step-num{width:34px;height:34px;border-radius:10px;background:var(--navy);color:#fff;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;margin:0 auto 7px}
+.step-lbl{font-size:10.5px;color:var(--text-mid);line-height:1.4}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sb-logo" style="padding:0;border-bottom:none">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" style="width:60px;height:60px">
+    <div style="padding:10px 16px 14px;border-bottom:1px solid #1B3357">
+      <span class="sb-badge" style="margin-top:0">R3 · R4 · 2029-2031</span>
+    </div>
+  </div>
+  <nav class="nav-sec">
+    <div class="nav-label">General</div>
+    <button class="nav-item active" onclick="go('inicio')" id="nav-inicio">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5L1 7.5V14.5H6V10H10V14.5H15V7.5L8 1.5Z"/></svg>
+      Inicio
+    </button>
+    <button class="nav-item" onclick="go('calendario')" id="nav-calendario">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1.5" y="3" width="13" height="11.5" rx="2"/><line x1="5" y1="1" x2="5" y2="5"/><line x1="11" y1="1" x2="11" y2="5"/><line x1="1.5" y1="7" x2="14.5" y2="7"/></svg>
+      Calendario
+    </button>
+    <button class="nav-item" onclick="go('plantilla')" id="nav-plantilla">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2.5" y="1.5" width="11" height="13" rx="2"/><line x1="5" y1="5.5" x2="11" y2="5.5"/><line x1="5" y1="9" x2="11" y2="9"/></svg>
+      Plantilla de sesión
+    </button>
+  </nav>
+  <nav class="nav-sec">
+    <div class="nav-label">Bloques temáticos</div>
+    <div id="block-nav"></div>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="topbar">
+    <div>
+      <div class="topbar-t" id="topbar-t">Programa de Formación MUYE</div>
+      <div class="topbar-s">Residentes R3-R4 · Junio 2029 — Mayo 2031</div>
+    </div>
+  </div>
+  <div class="content" id="content"></div>
+</main>
+
+<script>
+const B = [
+  { n:1, title:"Parada cardiaca y resucitación", c:"#DC2626", li:"#FEF2F2",
+    obj:"Capacitar al residente para liderar la atención a la parada cardiaca en adultos y niños, desde el reconocimiento hasta los cuidados posresucitación.",
+    topics:["Cadena de supervivencia","Soporte vital básico (SVB)","Soporte vital avanzado (SVA)","Cuidados posresucitación","Soporte vital infantil (SVB + SVA pediátrico)"] },
+  { n:2, title:"Emergencias tiempo-dependientes", c:"#D97706", li:"#FFFBEB",
+    obj:"Identificar y activar los circuitos asistenciales en las emergencias donde el tiempo determina el pronóstico vital y funcional del paciente.",
+    topics:["Código ictus","Código infarto","Código sepsis","Código trauma","Código intoxicaciones"] },
+  { n:3, title:"Vía aérea", c:"#2563EB", li:"#EFF6FF",
+    obj:"Dominar el manejo avanzado de la vía aérea, incluyendo la intubación de emergencia, el abordaje de la vía difícil y los fundamentos de la ventilación mecánica.",
+    topics:["Sedoanalgesia y SRI","Vía aérea convencional","Vía aérea difícil","Ventilación mecánica invasiva","Ventilación mecánica no invasiva"] },
+  { n:4, title:"Cardiovascular", c:"#BE185D", li:"#FDF2F8",
+    obj:"Diagnosticar y tratar con autonomía las principales emergencias cardiovasculares, incluyendo el manejo básico de dispositivos cardiacos implantables.",
+    topics:["Síndrome coronario agudo (SCA)","Bradiarritmias","Taquiarritmias","Dispositivos: marcapasos y DAI","Síndrome aórtico agudo"] },
+  { n:5, title:"Disnea", c:"#0891B2", li:"#ECFEFF",
+    obj:"Establecer un diagnóstico diferencial sistemático ante el paciente con disnea aguda e iniciar el tratamiento específico en las principales entidades.",
+    topics:["Asma","EPOC agudizado","Insuficiencia cardiaca aguda (ICA)","Enfermedad tromboembólica venosa: TVP y TEP","Otras causas de disnea"] },
+  { n:6, title:"Alteración del nivel de consciencia", c:"#7C3AED", li:"#F5F3FF",
+    obj:"Sistematizar la aproximación diagnóstica y terapéutica al paciente con alteración del nivel o del contenido de la consciencia.",
+    topics:["Síncope","Epilepsia y estado epiléptico","Agitación psicomotriz","Síndrome confusional agudo","Coma y alteraciones metabólicas"] },
+  { n:7, title:"Miscelánea", c:"#059669", li:"#ECFDF5",
+    obj:"Abordar con criterio clínico situaciones urgentes en grupos de pacientes especiales o en contextos que requieren una aproximación diferenciada.",
+    topics:["Paciente politraumatizado","Urgencias en la embarazada","Urgencias en el paciente oncológico","Síndrome febril","Urgencias ginecológicas y urológicas"] },
+  { n:8, title:"Gestión y liderazgo en urgencias", c:"#EA580C", li:"#FFF7ED",
+    obj:"Desarrollar competencias no técnicas esenciales para el ejercicio autónomo y seguro como médico especialista en urgencias y emergencias.",
+    topics:["Triaje avanzado: Manchester y SET","Comunicación en situaciones críticas","Gestión de la incertidumbre diagnóstica","Error médico y seguridad del paciente","Gestión de crisis (CRM)"] }
+];
+
+const CAL = [
+  {y:"R3",m:"Jun 2029",code:"1.1 / 1.2",t:"Cadena de supervivencia / SVB",b:1},
+  {y:"R3",m:"Jul 2029",code:"1.3 / 1.4",t:"SVA / Cuidados posresucitación",b:1},
+  {y:"R3",m:"Ago 2029",code:"—",t:"Vacaciones",b:0},
+  {y:"R3",m:"Sep 2029",code:"1.5 / 2.1",t:"SV infantil / Código ictus",b:1},
+  {y:"R3",m:"Oct 2029",code:"2.2 / 2.3",t:"Código infarto / Código sepsis",b:2},
+  {y:"R3",m:"Nov 2029",code:"2.4 / 2.5",t:"Código trauma / Código intoxicaciones",b:2},
+  {y:"R3",m:"Dic 2029",code:"3.1 / 3.2",t:"Sedoanalgesia y SRI / Vía aérea convencional",b:3},
+  {y:"R3",m:"Ene 2030",code:"3.3 / 3.4",t:"Vía aérea difícil / VMI",b:3},
+  {y:"R3",m:"Feb 2030",code:"3.5 / 4.1",t:"VMNI / SCA",b:3},
+  {y:"R3",m:"Mar 2030",code:"4.2 / 4.3",t:"Bradiarritmias / Taquiarritmias",b:4},
+  {y:"R3",m:"Abr 2030",code:"4.4 / 4.5",t:"Dispositivos MP y DAI / Sínd. aórtico agudo",b:4},
+  {y:"R3",m:"May 2030",code:"Eval.",t:"Evaluación final R3",b:-1},
+  {y:"R4",m:"Jun 2030",code:"5.1 / 5.2",t:"Asma / EPOC",b:5},
+  {y:"R4",m:"Jul 2030",code:"5.3 / 5.4",t:"ICA / ETV (TVP + TEP)",b:5},
+  {y:"R4",m:"Ago 2030",code:"—",t:"Vacaciones",b:0},
+  {y:"R4",m:"Sep 2030",code:"5.5 / 6.1",t:"Otras causas de disnea / Síncope",b:5},
+  {y:"R4",m:"Oct 2030",code:"6.2 / 6.3",t:"Epilepsia / Agitación psicomotriz",b:6},
+  {y:"R4",m:"Nov 2030",code:"6.4 / 6.5",t:"Sínd. confusional / Coma y alt. metabólicas",b:6},
+  {y:"R4",m:"Dic 2030",code:"7.1 / 7.2",t:"Politraumatizado / Urgencias en embarazada",b:7},
+  {y:"R4",m:"Ene 2031",code:"7.3 / 7.4",t:"Urgencias oncológicas / Síndrome febril",b:7},
+  {y:"R4",m:"Feb 2031",code:"7.5 / 8.1",t:"Urgencias ginecológicas-urológicas / Triaje",b:7},
+  {y:"R4",m:"Mar 2031",code:"8.2 / 8.3",t:"Comunicación / Gestión de la incertidumbre",b:8},
+  {y:"R4",m:"Abr 2031",code:"8.4 / 8.5",t:"Error médico / Gestión de crisis (CRM)",b:8},
+  {y:"R4",m:"May 2031",code:"Eval.",t:"Evaluación final R4 + Proyecto integrador",b:-1}
+];
+
+const BCOL = {0:"#94A3B8",1:"#DC2626",2:"#D97706",3:"#2563EB",4:"#BE185D",5:"#0891B2",6:"#7C3AED",7:"#059669",8:"#EA580C","-1":"#2563EB"};
+const BLIGHT = {0:"#F1F5F9",1:"#FEF2F2",2:"#FFFBEB",3:"#EFF6FF",4:"#FDF2F8",5:"#ECFEFF",6:"#F5F3FF",7:"#ECFDF5",8:"#FFF7ED","-1":"#EFF6FF"};
+
+const SECS = [
+  {t:"Caso clínico de entrada",d:"Escenario clínico breve que introduce el tema: presentación del paciente, motivo de consulta y datos clave de anamnesis y exploración física."},
+  {t:"Puntos clave",d:"Máximo 5 mensajes esenciales, basados en evidencia actualizada. Aplicables directamente en la práctica clínica."},
+  {t:"Desarrollo clínico",d:"Contenido principal basado en guías vigentes (ERC, ESC, GOLD, SEMES, Surviving Sepsis Campaign…). Diagnóstico y tratamiento con nivel de evidencia explícito."},
+  {t:"Algoritmo de decisión",d:"Flowchart de toma de decisiones clínicas aplicable en urgencias. La plataforma digital incluye el diagrama interactivo completo."},
+  {t:"Errores frecuentes",d:"Principales errores descritos en la literatura y en la práctica habitual, con orientaciones concretas para identificarlos y evitarlos."},
+  {t:"Referencias",d:"Guías de práctica clínica y bibliografía clave como fuente primaria. Se incluye DOI o URL cuando está disponible."},
+  {t:"Autoevaluación",d:"3-5 preguntas tipo test o caso clínico corto, con respuesta correcta razonada y basada en evidencia."}
+];
+
+// Build sidebar block nav
+document.getElementById('block-nav').innerHTML = B.map(b =>
+  `<button class="nav-item sub" onclick="go('b${b.n}')" id="nav-b${b.n}">
+    <span class="dot" style="background:${b.c}"></span>
+    B${b.n} · ${b.title.length>26?b.title.slice(0,26)+'…':b.title}
+  </button>`
+).join('');
+
+function go(view) {
+  // update nav
+  document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
+  const navId = view.startsWith('t') ? 'nav-b'+view[1] : 'nav-b'+view[1]||'';
+  if(view==='inicio')   document.getElementById('nav-inicio').classList.add('active');
+  else if(view==='calendario') document.getElementById('nav-calendario').classList.add('active');
+  else if(view==='plantilla')  document.getElementById('nav-plantilla').classList.add('active');
+  else if(view.startsWith('b')&&!view.startsWith('bl')) document.getElementById('nav-b'+view[1]).classList.add('active');
+  else if(view.startsWith('t')) { const bn=view.split('-')[0].slice(1); document.getElementById('nav-b'+bn).classList.add('active'); }
+  render(view);
+}
+
+function render(view) {
+  const ct = document.getElementById('content');
+  const tt = document.getElementById('topbar-t');
+  if(view==='inicio')       { tt.textContent='Inicio'; ct.innerHTML=vInicio(); }
+  else if(view==='calendario'){ tt.textContent='Calendario Bianual 2029-2031'; ct.innerHTML=vCal(); }
+  else if(view==='plantilla') { tt.textContent='Plantilla de Sesión'; ct.innerHTML=vTemplate(null,null,'Título del tema','N','N.N'); setupAccordion(); }
+  else if(view.startsWith('b')&&view.length<=2) {
+    const bn=parseInt(view[1]); const bl=B[bn-1];
+    tt.textContent=`Bloque ${bn} — ${bl.title}`;
+    ct.innerHTML=vBlock(bl);
+  }
+  else if(view.startsWith('t')) {
+    const [pt,idx]=view.split('-'); const bn=parseInt(pt.slice(1)); const ti=parseInt(idx);
+    const bl=B[bn-1]; const topic=bl.topics[ti-1];
+    tt.textContent=`${bn}.${ti} ${topic}`;
+    ct.innerHTML=vTemplate(bl,ti,topic,bn,`${bn}.${ti}`);
+    setupAccordion();
+  }
+  window.scrollTo(0,0);
+}
+
+function vInicio(){
+  return `
+  <div class="hero">
+    <div class="hero-badge">MUYE · R3-R4 · 2029-2031</div>
+    <div class="hero-title">Programa de Formación<br>en Urgencias y Emergencias</div>
+    <div class="hero-desc">Hospital Clínico Universitario de Valladolid · Sacyl. Formación estructurada, basada en evidencia científica actualizada, para consolidar las competencias clínicas y no técnicas en urgencias y emergencias.</div>
+    <div class="hero-actions">
+      <button class="btn-p" onclick="go('b1')">Empezar por Bloque 1</button>
+      <button class="btn-s" onclick="go('calendario')">Ver calendario</button>
+    </div>
+  </div>
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-bar" style="background:#2563EB"></div><div class="stat-val">8</div><div class="stat-lbl">Bloques temáticos</div></div>
+    <div class="stat-card"><div class="stat-bar" style="background:#059669"></div><div class="stat-val">40</div><div class="stat-lbl">Temas · sesiones</div></div>
+    <div class="stat-card"><div class="stat-bar" style="background:#D97706"></div><div class="stat-val">2</div><div class="stat-lbl">Años académicos</div></div>
+    <div class="stat-card"><div class="stat-bar" style="background:#DC2626"></div><div class="stat-val">2<span style="font-size:18px;font-weight:400">/mes</span></div><div class="stat-lbl">Sesiones medias</div></div>
+  </div>
+  <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:22px 26px;margin-bottom:22px">
+    <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-light);margin-bottom:14px;font-weight:500">Estructura de cada sesión</div>
+    <div class="steps-grid">
+      ${SECS.map((s,i)=>`<div class="step-item">
+        <div class="step-num" style="background:var(--navy)">${i+1}</div>
+        <div class="step-lbl">${s.t}</div>
+      </div>`).join('')}
+    </div>
+  </div>
+  <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:22px 26px">
+    <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-light);margin-bottom:14px;font-weight:500">Bloques del programa</div>
+    ${B.map(b=>`<div class="brow" onclick="go('b${b.n}')">
+      <div class="brow-icon" style="background:${b.c}">${b.n}</div>
+      <div style="flex:1;min-width:0">
+        <div class="brow-name">${b.title}</div>
+        <div class="brow-topics">${b.topics.join(' · ')}</div>
+      </div>
+      <div class="brow-arr">→</div>
+    </div>`).join('')}
+  </div>`;
+}
+
+function vBlock(bl){
+  return `
+  <div class="bc"><a onclick="go('inicio')">Inicio</a> › <span>Bloque ${bl.n}</span></div>
+  <div class="block-hd" style="background:${bl.c}">
+    <div class="block-hd-num">Bloque ${bl.n}</div>
+    <div class="block-hd-title">${bl.title}</div>
+    <div class="block-hd-obj">${bl.obj}</div>
+  </div>
+  <div class="topic-list">
+    ${bl.topics.map((t,i)=>`
+    <div class="topic-item"
+      onmouseover="this.style.borderColor='${bl.c}';this.style.boxShadow='0 2px 14px rgba(0,0,0,.08)'"
+      onmouseout="this.style.borderColor='var(--border)';this.style.boxShadow='none'"
+      onclick="go('t${bl.n}-${i+1}')">
+      <div class="topic-badge" style="background:${bl.li};color:${bl.c}">${bl.n}.${i+1}</div>
+      <div>
+        <div class="topic-name">${t}</div>
+        <div class="topic-sub">7 secciones · Caso clínico, algoritmo, autoevaluación</div>
+      </div>
+      <div class="topic-arr" style="color:${bl.c}">Abrir →</div>
+    </div>`).join('')}
+  </div>`;
+}
+
+function vTemplate(bl,ti,topic,bnum,code){
+  const color = bl ? bl.c : 'var(--navy)';
+  return `
+  <div class="tview">
+    ${bl?`<div class="bc"><a onclick="go('inicio')">Inicio</a> › <a onclick="go('b${bl.n}')" style="color:${bl.c}">Bloque ${bl.n}</a> › <span>${topic}</span></div>`:''}
+    <div class="thd" style="background:linear-gradient(135deg,${bl?bl.c:'var(--navy)'} 0%,${bl?bl.c+'BB':'#1E3A8A'} 100%)">
+      <div class="thd-code">Bloque ${bnum} · Código ${code}</div>
+      <div class="thd-title">${topic}</div>
+      <div class="thd-meta">7 secciones · Basado en evidencia científica actualizada</div>
+    </div>
+    ${SECS.map((s,i)=>`
+    <div class="sec-card" id="sc${i}">
+      <div class="sec-hd" onclick="tog(${i})">
+        <div class="sec-num" style="background:${color}">${i+1}</div>
+        <div class="sec-title">${s.t}</div>
+        <span class="chev">▼</span>
+      </div>
+      <div class="sec-body">
+        <div class="sec-ph">${s.d}</div>
+      </div>
+    </div>`).join('')}
+  </div>`;
+}
+
+function vCal(){
+  const mkRows = yr => CAL.filter(r=>r.y===yr).map(r=>{
+    const col = BCOL[String(r.b)]||'#888';
+    const light = BLIGHT[String(r.b)]||'#F8FAFC';
+    const vac = r.b===0;
+    return `<tr>
+      <td style="font-weight:500;color:${vac?'#94A3B8':col}">${r.m}</td>
+      <td><span class="mbadge" style="background:${light};color:${col}">${r.code}</span></td>
+      <td style="color:${vac?'#94A3B8':'var(--text)'};font-style:${vac?'italic':'normal'}">${r.t}</td>
+      <td style="text-align:center"><span class="bnum-dot" style="background:${r.b>0?col:'transparent'};color:${r.b>0?'#fff':col}">${r.b>0?r.b:''}</span></td>
+    </tr>`;
+  }).join('');
+  return `
+  <div class="cal-tabs">
+    <button class="cal-tab active" id="tab-r3" onclick="showCal('R3')">R3 — 2029/2030</button>
+    <button class="cal-tab" id="tab-r4" onclick="showCal('R4')">R4 — 2030/2031</button>
+  </div>
+  <div id="cal-r3">
+    <table class="cal-tbl">
+      <thead><tr><th style="width:105px">Mes</th><th style="width:120px">Código</th><th>Contenido</th><th style="width:52px;text-align:center">B</th></tr></thead>
+      <tbody>${mkRows('R3')}</tbody>
+    </table>
+  </div>
+  <div id="cal-r4" style="display:none">
+    <table class="cal-tbl">
+      <thead><tr><th style="width:105px">Mes</th><th style="width:120px">Código</th><th>Contenido</th><th style="width:52px;text-align:center">B</th></tr></thead>
+      <tbody>${mkRows('R4')}</tbody>
+    </table>
+  </div>`;
+}
+
+function showCal(y){
+  document.getElementById('cal-r3').style.display = y==='R3'?'block':'none';
+  document.getElementById('cal-r4').style.display = y==='R4'?'block':'none';
+  document.getElementById('tab-r3').classList.toggle('active',y==='R3');
+  document.getElementById('tab-r4').classList.toggle('active',y==='R4');
+}
+
+function tog(i){
+  document.getElementById('sc'+i).classList.toggle('open');
+}
+function setupAccordion(){ /* open first by default */
+  const sc = document.getElementById('sc0');
+  if(sc) sc.classList.add('open');
+}
+
+go('inicio');
+</script>
+</body>
+</html>
